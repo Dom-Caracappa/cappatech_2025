@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tags",
+  "info": {
+    "singularName": "tag",
+    "pluralName": "tags",
+    "displayName": "Tag"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "knowledge_bases": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::knowledge-base.knowledge-base",
+      "inversedBy": "tags"
+    }
+  }
+}
