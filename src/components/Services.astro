@@ -1,0 +1,142 @@
+---
+const services = [
+    {
+        title: "Digital Transformation & Workflow Automation",
+        icon: {
+                default: "public/icons/services-icons/lightbulb-w.png",
+                hover: "public/icons/services-icons/lightbulb-o.png",
+        },
+        subtitleParts: [
+            {text: "Intelligently ", italic: true}, 
+            {text: "streamline your org...", italic: false}
+        ],
+        description: [
+            `We design and implement custom digital workflows that reduce inefficiencies, standardize processes, and enable seamless collaboration across departments. From automated approvals to integrated knowledge systems, we ensure your operations are future-proof.`
+        ],
+        examples: [
+            "Process Optimization",
+            "No-Code & Low-Code Solutions",
+            "Workflow Automation",
+            "Cloud & API-First Digital Architecture",
+        ],
+    },
+    {
+        title: "Technical Documentation & Knowledge Management",
+        icon: {
+            default: "public/icons/services-icons/gear-w.png",
+            hover: "public/icons/services-icons/gear-o.png",
+        },
+        subtitleParts: [
+            {text: "Bring order to chaos...", italic: false},           
+        ],
+            description: [
+            `We specialize in creating structured, maintainable, and scalable documentation that empowers teams to work efficiently. Whether it’s engineering documentation, SOPs, API guides, or knowledge bases, we ensure your information is always accessible, up-to-date, and actionable.`
+        ],
+        examples: [
+            "Enterprise & Engineering Documentation",
+            "Knowledge Base Development",
+            "Information Architecture & Taxonomy Design",
+            "Automated Documentation Pipelines",
+        ],
+    },
+    {
+        title: "Business Systems & Data-Driven Decision Making",
+        icon: {
+            default: "public/icons/services-icons/rocket-w.png",
+            hover: "public/icons/services-icons/rocket-o.png",
+        },
+        subtitleParts: [
+            {text: "Your org will grow, be in control of that growth...", italic: false},           
+        ],
+        description: [
+            `We help businesses implement and optimize digital business systems for project management, data visualization, and team collaboration. From Jira workflows to Power BI dashboards, we ensure you have the right tools to drive efficiency and accountability.`
+        ],
+        examples: [
+            "Jira & Confluence Suite Implementation",
+            "Custom Business Intelligence Dashboards",
+            "Standardization & Governance for Digital Workflows",
+            "ERP & CRM Integrations",
+        ],
+    },
+    {
+        title: "Technical Strategy & Consulting",
+        icon: {
+            default: "public/icons/services-icons/target-w.png",
+            hover: "public/icons/services-icons/target-o.png",
+        },
+        subtitleParts: [
+            {text: "Buy once, cry once...", italic: false},           
+        ],
+        description:[ 
+            `We provide strategic guidance to help organizations adopt, scale, and optimize their technical operations. Whether you're modernizing legacy systems, evaluating tools, or implementing new methodologies, we ensure your digital strategy drives results.`
+        ],
+        examples: [
+            "Digital Tool & Vendor Selection",
+            "Tech Stack Evaluation & Migration Strategy",
+            "Agile & Lean Project Management Consulting",
+            "Cybersecurity & Risk Mitigation for Digital Operations",
+        ],
+    },
+];
+---
+
+<section id="services" class="mx-auto max-w-6xl py-16 w-[90%] text-center">
+    <h2 class="text-4xl p-8 font-bold text-orange-500">Our Services</h2>
+   
+
+    <!-- 2x2 Grid Layout -->
+    <div class="m-5 align-middle grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        {services.map((service) => (
+                <div class="group flex flex-col items-center justify-center text-center h-full p-6 rounded-lg bg-gray-950/70 p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg shadow-orange-500">
+                    {/* <!-- Static Icon -->
+                    <span class=" m-5 text-5xl">{service.icon}</span> */}
+                    
+                        <!-- Swippy Swappy Icons -->
+                        <div class="relative align-middle w-16 h-16">
+                            <img
+                                src={service.icon.default}
+                                alt={`${service.title} icon`}
+                                class="absolute inset-0 w-full h-full object-contain transition-opacity duration-300 group-hover:opacity-0"
+                            />
+                            <img
+                                src={service.icon.hover}
+                                alt={`${service.title} hover icon`}
+                                class="absolute inset-0 w-full h-full object-contain opacity-0 transition-transform duration-300 group-hover:opacity-100"
+                            />
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="m-5 mb-4 text-xl font-semibold text-sky-50">
+                            {service.title}
+                        </h3>
+
+                        <!-- Subtitle -->
+                        <p class="m-5 text-xl font-thin text-gray-100 group-hover:text-orange-500 transition-colors">
+                        {service.subtitleParts.length === 1 ? (
+                        // Default to normal, italicize only when explicitly set
+                        service.subtitleParts[0].italic ? <em>{service.subtitleParts[0].text}</em> : service.subtitleParts[0].text
+                            ) : (
+                        // For multiple parts, only italicize where specified
+                        service.subtitleParts.map((part, index) => (
+                        part.italic ? <em key={index} class="group-hover:text-orange-500 transition-colors">{part.text}</em> : <span key={index} class="group-hover:text-orange-500 transition-colors">{part.text}</span>
+                        ))
+                        )}
+                        </p>
+
+
+                        <!-- Description -->
+                        <p class="m-5 text-sky-50">{service.description}</p>
+
+                        {/* Examples List (Conditional Rendering) */}
+                        <ul class="m-5 p-2 text-sky-100 text-left list-disc list-inside">
+                            {service.examples.map((example, index) => (
+                                <Fragment key={index}>
+                                    <li>{example}</li>
+                                </Fragment>
+                            ))}   
+                        </ul>
+                    </div>    
+            
+        ))}
+    </div>
+</section>
