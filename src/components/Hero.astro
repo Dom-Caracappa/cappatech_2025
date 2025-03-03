@@ -1,31 +1,34 @@
 ---
-
+const scriptSrc = "/js/three-init.js"; // Serve from /public
 ---
 
-<section class="mt-12 mb-12 w-full h-[80%] flex flex-col items-center">
+<section
+    class="relative flex flex-col items-center justify-center w-full h-screen px-4 pt-2 mt-2"
+>
     <!-- Glass Background -->
     <div
-        class="glass-background relative w-[90%] h-[90%] bg-white/30 backdrop-blur-md border border-white/40 rounded-lg shadow-lg p-6 flex flex-col"
+        class="glass-background relative w-[90%] h-[70%] bg-white/30 backdrop-blur-md border border-white/40 rounded-lg shadow-lg p-6 flex flex-col mt-4"
     >
-        <!-- WebGL Canvas for Three.js (absolute so it stays centered inside) -->
+        <!-- 🎥 WebGL Canvas for Three.js -->
         <div
             id="three-container"
-            class="absolute pb-10 left-1/2 transform -translate-x-1/2 z-1 w-full h-[50%]"
+            class="absolute w-full h-full left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-[30%] z-[1]"
         >
         </div>
 
-        <!-- Text below the cube -->
-        <div class="relative z-2 content-end">
-            <p class="text-3xl max-w-md font-semibold text-gray-950">
+        <!-- Text Content -->
+        <div class="relative z-[2] text-left">
+            <p class="text-4xl font-semibold text-gray-950">
                 Are You in the Black Box Business?
             </p>
 
-            <p class="max-w-md mt-1.5 align-bottom text-gray-900">
+            <p class="max-w-md mt-2 text-gray-900">
                 Shine a light on hidden processes, document your work, and
                 create knowledge management systems.
             </p>
-            <!-- Load Three.js Script -->
-            <script src="/js/three-init.js" type="module"></script>
         </div>
     </div>
 </section>
+
+<!-- ✅ Load Three.js Script (Astro-Compliant) -->
+<script src={scriptSrc} type="module"></script>

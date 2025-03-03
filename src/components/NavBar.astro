@@ -3,8 +3,19 @@
 ></script>
 
 <nav
-    x-data="{ open: false }"
-    class="relative mx-[24px] flex items-center justify-between rounded-md bg-black px-4 py-3 shadow-md h-16 fixed top-4 left-0 right-0 z-50"
+    x-data="{ open: false, lastScroll: 0, hidden: false }"
+    x-init="window.addEventListener('scroll', () => {
+        let currentScroll = window.pageYOffset;
+        if (currentScroll > 100) {
+            hidden = true;  // Hide after 100px scroll
+        } 
+        if (currentScroll <= 10) {
+            hidden = false; // Show again only at the top
+        }
+        lastScroll = currentScroll;
+    })"
+    :class="{ '-top-20': hidden, 'top-4': !hidden }"
+    class="mx-[24px] fixed left-0 right-0 z-50 flex items-center justify-between rounded-md bg-black px-4 py-3 shadow-md h-16 transition-all duration-200 ease-in-out"
 >
     <!-- Left section: Logo (clickable) -->
     <div class="flex items-center space-x-2">
@@ -46,18 +57,15 @@
         <ul class="flex flex-col items-center space-y-4 py-4">
             <li>
                 <a href="#services" class="text-white hover:text-gray-300"
-                    >Services</a
-                >
+                    >Services</a>
             </li>
             <li>
                 <a href="#pricing" class="text-white hover:text-gray-300"
-                    >Pricing</a
-                >
+                    >Pricing</a>
             </li>
             <li>
                 <a href="#contact" class="text-white hover:text-gray-300"
-                    >Contact</a
-                >
+                    >Contact</a>
             </li>
             <li>
                 <a href="/blog" class="text-white hover:text-gray-300">Blog</a>
@@ -69,16 +77,15 @@
     <ul class="hidden md:flex items-center space-x-4">
         <li>
             <a href="#services" class="text-white hover:text-gray-300"
-                >Services</a
-            >
+                >Services</a>
         </li>
         <li>
-            <a href="#pricing" class="text-white hover:text-gray-300">Pricing</a
-            >
+            <a href="#pricing" class="text-white hover:text-gray-300"
+                >Pricing</a>
         </li>
         <li>
-            <a href="#contact" class="text-white hover:text-gray-300">Contact</a
-            >
+            <a href="#contact" class="text-white hover:text-gray-300"
+                >Contact</a>
         </li>
         <li><a href="/blog" class="text-white hover:text-gray-300">Blog</a></li>
     </ul>
