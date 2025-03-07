@@ -1,19 +1,11 @@
-import { drizzle } from 'drizzle-orm/better-sqlite3';
-import Database from 'better-sqlite3';
-import { sql } from 'drizzle-orm';
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 
-const sqlite = new Database('contact-form.db'); // SQLite file
-export const db = drizzle(sqlite);
-
-export const createTable = () => {
-    db.run(sql`
-    CREATE TABLE IF NOT EXISTS contact_form (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL,
-      subject TEXT NOT NULL,
-      message TEXT NOT NULL,
-      submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-  `);
-};
+// Define the contact form table
+export const contactForm = sqliteTable("contact_form", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  subject: text("subject").notNull(),
+  message: text("message").notNull(),
+  submittedAt: text("submitted_at").default("CURRENT_TIMESTAMP"),
+});

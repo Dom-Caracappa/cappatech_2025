@@ -1,119 +1,74 @@
-// Load Three.js from CDN
-
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js";
 
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM Loaded, initializing Three.js...");
+console.log("🔎 three-init.js loaded. Checking THREE import:", THREE);
 
-    // Find container
+window.scene = null;
+window.camera = null;
+window.renderer = null;
+window.cube = null;
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded, searching for #three-container...");
     const container = document.getElementById("three-container");
     if (!container) {
-        console.error("ERROR: #three-container not found!");
+        console.error("❌ #three-container not found. Aborting...");
         return;
     }
+    console.log("✅ Container found, proceeding with minimal init...");
 
-    // Setup Three.js scene
-    const scene = new THREE.Scene();
+    try {
+        console.log("1) Creating scene...");
+        window.scene = new THREE.Scene();
+        console.log("2) Scene created:", window.scene);
 
-    // Setup aspect ratio and frustum size
-    const aspectRatio = container.clientWidth / container.clientHeight;
-    const frustumSize = 5; // Controls how much of the scene is visible
+        const aspectRatio = container.clientWidth / container.clientHeight || 1;
+        const frustumSize = 5;
 
-    // **Use an Orthographic Camera for isometric view**
-    const camera = new THREE.OrthographicCamera(
-        -frustumSize * aspectRatio, // Left
-        frustumSize * aspectRatio,  // Right
-        frustumSize,                // Top
-        -frustumSize,               // Bottom
-        0.1,                        // Near
-        100                         // Far
-    );
+        console.log("3) Creating camera...");
+        window.camera = new THREE.OrthographicCamera(
+            -frustumSize * aspectRatio,
+            frustumSize * aspectRatio,
+            frustumSize,
+            -frustumSize,
+            0.1,
+            100
+        );
+        console.log("4) Camera created:", window.camera);
+        window.camera.position.set(5, 4.5, 5);
+        window.camera.lookAt(0, 1, 0);
 
-    // Position camera for isometric effect
-    camera.position.set(5, 5, 5);  // Move up and back
-    camera.lookAt(0, 0, 0);       // Look at scene center
+        console.log("5) Creating renderer...");
+        window.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        console.log("6) Renderer object created:", window.renderer);
+        window.renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(window.renderer.domElement);
+        console.log("7) Renderer appended to container.");
 
-    // Create WebGL renderer
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        console.log("8) Creating cube geometry...");
+        const geometry = new THREE.BoxGeometry(4, 4, 4);
+        const material = new THREE.MeshStandardMaterial({ color: 0x000000, transparent: true, opacity: 0.8 });
+        window.cube = new THREE.Mesh(geometry, material);
+        console.log("9) Cube created:", window.cube);
+        window.scene.add(window.cube);
 
-    // Gives renderer a bg color (for debug)
-    // const renderer = new THREE.WebGLRenderer({ alpha: false, antialias: true });
-    // renderer.setClearColor(0xfffffff, 1);
+        console.log("🔟 Adding lighting...");
+        window.scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1);
+        dirLight.position.set(5, 5, 5).normalize();
+        window.scene.add(dirLight);
 
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    container.appendChild(renderer.domElement);
+        console.log("11) Setting up animation loop...");
+        function animate() {
+            requestAnimationFrame(animate);
+            window.cube.rotation.y += 0.01;
+            window.renderer.render(window.scene, window.camera);
+        }
+        animate();
+        console.log("✅ Minimal init done. Scenes, camera, renderer should be on `window` now.");
 
-    // Gleam the Cube
-    const geometry = new THREE.BoxGeometry(3, 3, 3, 1, 1, 1);
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x000000,
-        transparent: true,
-        opacity: 0.8, // Slightly translucent cube
-    });
-
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    // Wireframe edges
-    // const edges = new THREE.EdgesGeometry(geometry);
-    // const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x657485, linewidth: 1 }); // White edges
-    // const wireframe = new THREE.LineSegments(edges, edgesMaterial);
-    // cube.add(wireframe); 
-
-    const edges = new THREE.EdgesGeometry(geometry);
-    const edgesMaterial = new THREE.LineBasicMaterial({
-        color: 0xF37F16,  // Color
-        linewidth: 2,      // Make edges more visible
-        transparent: true, // Enable transparency
-        opacity: 1         // Start fully visible
-    });
-    const wireframe = new THREE.LineSegments(edges, edgesMaterial);
-    cube.add(wireframe); // Attach edges to the cube
-
-
-    console.log("Scene Objects:", scene.children);
-
-
-    // Add lighting for better visibility
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(5, 5, 5).normalize();
-    scene.add(directionalLight);
-
-    // Resize listener
-    function updateSize() {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-
-        renderer.setSize(width, height);
-
-        // Update orthographic camera bounds
-        camera.left = -frustumSize * (width / height);
-        camera.right = frustumSize * (width / height);
-        camera.top = frustumSize;
-        camera.bottom = -frustumSize;
-
-        camera.updateProjectionMatrix();
+    } catch (err) {
+        console.error("❌ An error occurred in minimal init:", err);
     }
 
-    window.addEventListener("resize", updateSize);
-    updateSize(); // Ensure correct size on load
-
-    let time = 0;
-
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        // cube.rotation.x += 0.01;
-
-        // Pulse effect using sine wave
-        edgesMaterial.opacity = 0.5 + Math.sin(time) * 1.8;
-
-        cube.rotation.y += .01;
-        renderer.render(scene, camera);
-    }
-
-    animate();
+    console.log("✅ All lines ran—If you see me, the script 100% executed!");
 });

@@ -1,19 +1,19 @@
 ---
 import "../styles/global.css";
 import NavBar from "../components/NavBar.astro";
-import Hero from "../components/Hero.astro";
-import Method from "../components/Method.astro";
-import Services from "../components/Services.astro";
+import Hero from "../components/Hero.jsx";
+import Services from "../components/Services.jsx";
 import Pricing from "../components/Pricing.astro";
 import Contact from "../components/contactUs.astro";
 import Footer from "../components/Footer.astro";
+import Method from "../components/Method.jsx";
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script
 			src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
 			defer></script>
@@ -21,11 +21,23 @@ import Footer from "../components/Footer.astro";
 		<meta name="generator" content={Astro.generator} />
 		<title>CappaTech</title>
 	</head>
-	<body class="h-screen bg-sky-950"> </body><NavBar />
-	<Hero />
-	<Method />
-	<Services />
-	<Pricing />
-	<Contact />
-	<Footer />
+
+	<body
+		class="min-h-screen w-full max-w-[1400px] mx-auto overflow-x-hidden bg-sky-950 text-white"
+	>
+		<!-- Navigation -->
+		<NavBar />
+
+		<!-- Main Content -->
+		<main class="container mx-auto space-y-16 md:space-y-24 px-6">
+			<Hero client:only />
+			<Method client:visible />
+			<Services client:visible />
+			<Pricing />
+			<Contact />
+		</main>
+
+		<!-- Footer -->
+		<Footer />
+	</body>
 </html>
