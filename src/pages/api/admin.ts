@@ -1,16 +1,20 @@
-import { db } from '../../db/db';
-import { contactForm } from '../../db/schema';
+import { defineMiddleware } from "astro/middleware";
+import { readFile } from "fs/promises";
 
-export async function GET({ request }: { request: Request }) {
-    const cookies = request.headers.get('cookie') || '';
-    if (!cookies.includes("session=admin-logged-in")) {
-        return new Response(
-            JSON.stringify({ error: "Unauthorized" }),
-            { status: 403 }
-        );
+export const onRequest = defineMiddleware(async (context, next) => {
+    // Authenticate the request
+    const authHeader = context.request.headers.get("Authorization");
+    const expectedSecret = import.meta.env.VITE_ADMIN_SECRET;
+
+    if (!authHeader || authHeader !== `Bearer ${expectedSecret}`) {
+        return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
-    // Fetch messages from the database
-    const messages = await db.select().from(contactForm);
-    return new Response(JSON.stringify(messages), { status: 200 });
-}
+    try {
+        // Read messages from a JSON file (or use a real DB)
+        const messages = JSON.parse(await readFile("data/messages.json", "utf-8"));
+        return new Response(JSON.stringify(messages), { headers: { "Content-Type": "application/json" } });
+    } catch (error) {
+        return new Response(JSON.stringify({ error: "Failed to load messages" }), { status: 500 });
+    }
+});

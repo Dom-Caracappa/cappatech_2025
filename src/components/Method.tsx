@@ -1,6 +1,18 @@
 import { useState } from "react";
 
-const methodSteps = [
+// ✅ Define MethodStep Type
+interface MethodStep {
+    id: string;
+    title: string;
+    description: string;
+    icon: {
+        default: string;
+        hover: string;
+    };
+}
+
+// ✅ Define method steps with Type Safety
+const methodSteps: MethodStep[] = [
     {
         id: "discovery",
         title: "Step 1: Discovery",
@@ -39,19 +51,26 @@ const methodSteps = [
     },
 ];
 
-export default function Method() {
+// ✅ Type the Main Component
+export default function Method(): JSX.Element {
     return (
-        <section className="mx-auto w-full mt-16 mb-16 max-w-[1400px] border-orange-500 border shadow-black shadow-2xl px-4 py-8 text-left bg-gray-900 rounded-lg">
-            <div className="container max-w-6xl w-full px-6 mx-auto">
-                <h2 className="text-left px-6 text-2xl font-bold mt-2 mb-10 text-orange-500 leading-tight">
+        <section className="w-full mb-16 max-w-screen-xl px-6 py-16 md:py-24 bg-gray-900 text-white rounded-md shadow-2xl shadow-black border border-orange-500">
+            <div className="w-full max-w-5xl mx-auto">
+                {/* Section Title */}
+                <h2 className="text-2xl text-center font-bold text-orange-500 mb-8">
                     The CappaTech Method
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {methodSteps.map((step) => (
-                        <div key={step.id} className="method-card flex flex-col items-center text-center space-y-4 p-6 rounded-lg bg-gray-800 transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-700">
-                            <IconToggle icon={step.icon} class="hover:" title={step.title} />
+
+                {/* Grid Layout */}
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {methodSteps.map((step: MethodStep) => (
+                        <div
+                            key={step.id}
+                            className="flex flex-col items-center text-center space-y-4 p-6 rounded-lg bg-gray-800 transition-transform hover:scale-105 hover:bg-gray-700"
+                        >
+                            <IconToggle icon={step.icon} title={step.title} />
                             <h3 className="text-lg font-semibold text-white">{step.title}</h3>
-                            <p className="text-gray-300 text-sm leading-normal max-w-xs">{step.description}</p>
+                            <p className="text-gray-300 text-sm leading-relaxed">{step.description}</p>
                         </div>
                     ))}
                 </div>
@@ -60,19 +79,27 @@ export default function Method() {
     );
 }
 
-function IconToggle({ icon, title }) {
-    const [hovered, setHovered] = useState(false);
+// ✅ Type the IconToggle Component
+interface IconToggleProps {
+    icon: { default: string; hover: string };
+    title: string;
+}
+
+function IconToggle({ icon, title }: IconToggleProps): JSX.Element {
+    const [hovered, setHovered] = useState<boolean>(false);
 
     return (
         <div
-            className="relative w-16 h-16"
+            className="w-12 h-12 relative flex items-center justify-center"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            role="img"
+            aria-label={`${title} icon`}
         >
             <img
                 src={hovered ? icon.hover : icon.default}
                 alt={title}
-                className="absolute inset-0 w-full h-full transition-opacity duration-300"
+                className="w-full h-full transition-opacity duration-300 ease-in-out"
             />
         </div>
     );

@@ -1,43 +1,39 @@
 ---
 import "../styles/global.css";
-import NavBar from "../components/NavBar.astro";
-import Hero from "../components/Hero.jsx";
-import Services from "../components/Services.jsx";
-import Pricing from "../components/Pricing.astro";
-import Contact from "../components/contactUs.astro";
+import Navbar from "../components/NavBar.tsx";
+import Hero from "../components/Hero.js";
+import Services from "../components/Services.js";
+import Pricing from "../components/Pricing.jsx";
+import ContactSection from "../components/ContactSection.tsx";
 import Footer from "../components/Footer.astro";
-import Method from "../components/Method.jsx";
+import Method from "../components/Method.js";
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<script
-			src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-			defer></script>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-		<meta name="generator" content={Astro.generator} />
 		<title>CappaTech</title>
 	</head>
 
-	<body
-		class="min-h-screen w-full max-w-[1400px] mx-auto overflow-x-hidden bg-sky-950 text-white"
-	>
+	<body class="min-h-screen w-full bg-sky-950 text-white">
 		<!-- Navigation -->
-		<NavBar />
+		<Navbar />
 
 		<!-- Main Content -->
-		<main class="container mx-auto space-y-16 md:space-y-24 px-6">
+		<main class="container mx-auto flex flex-col px-4 sm:px-6 lg:px-8">
 			<Hero client:only />
 			<Method client:visible />
 			<Services client:visible />
-			<Pricing />
-			<Contact />
+			<Pricing client:visible />
+			<ContactSection client:visible />
 		</main>
 
-		<!-- Footer -->
+		<!-- Footer (Normalized Spacing) -->
+		<div class="h-20"></div>
+		<!-- Ensures Footer Spacing -->
 		<Footer />
 	</body>
 </html>

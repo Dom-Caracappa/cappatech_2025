@@ -1,14 +1,22 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    // 🟢 Core TypeScript settings often needed with Express:
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    // 🟢 Astro’s suggestions + your existing stuff:
     "jsx": "react-jsx",
     "strict": true,
-    "jsxImportSource": "react"
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsxImportSource": "react",
+    "skipLibCheck": true
   },
   "include": [
     "src",
     "astro-env.d.ts",
     ".astro/types.d.ts",
+    "global.d.ts",
     "**/*"
   ],
   "exclude": [
