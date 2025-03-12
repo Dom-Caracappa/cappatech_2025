@@ -1,0 +1,31 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    // Enable ES Modules & Modern JavaScript Features
+    "module": "NodeNext", // Enables ESM support in Node.js
+    "moduleResolution": "NodeNext", // Ensures Node.js-style module resolution
+    "target": "ESNext", // Always use the latest and greatest ECMAScript
+    // TypeScript Interoperability & Compatibility
+    "allowJs": true, // Allows JavaScript files (.mjs, .cjs) in the project
+    "allowSyntheticDefaultImports": true, // Allows easier importing of non-ESM packages
+    "esModuleInterop": true, // Fixes default import issues with CommonJS modules
+    // JSON & JSX Compatibility (for Astro & React)
+    "resolveJsonModule": true, // Enables importing JSON files with `import`
+    "jsx": "react-jsx", // Supports React JSX syntax
+    "jsxImportSource": "react", // Specifies React as the JSX source
+    // Performance & Build Optimizations
+    "strict": true, // Enforces strict type-checking
+    "skipLibCheck": true // Skips type-checking for external dependencies (improves speed)
+  },
+  "include": [
+    "src",
+    "astro-env.d.ts",
+    ".astro/types.d.ts",
+    "global.d.ts",
+    "./**/*" // Ensures all project files are included
+  ],
+  "exclude": [
+    "dist", // Excludes the built output folder
+    "node_modules" // Excludes dependencies for faster compilation
+  ]
+}

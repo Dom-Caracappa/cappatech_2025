@@ -1,0 +1,22 @@
+{
+    "name": "cappatech-backend",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "type": "module",
+    "scripts": {
+        "dev": "pnpm exec ts-node-esm index.mts",
+        "build": "tsc",
+        "start": "node dist/index.js"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3"
+    },
+    "devDependencies": {
+        "@types/node": "^22.13.10",
+        "ts-node": "^10.9.2",
+        "ts-node-dev": "^2.0.0",
+        "typescript": "^5.2.2"
+    }
+}

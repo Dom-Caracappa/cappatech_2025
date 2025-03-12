@@ -1,7 +1,9 @@
+// src/components/Pricing.tsx
+
 import React, { useState } from "react";
 import clsx from "clsx";
 
-// ✅ Define PricingPlan Type
+// Define PricingPlan for the front-end
 interface PricingPlan {
     title: string;
     price: string;
@@ -10,10 +12,10 @@ interface PricingPlan {
     features: string[];
     buttonText: string;
     buttonColor: string;
-    border?: boolean; // Optional
+    border?: boolean;
 }
 
-// ✅ Define pricing plans with Type Safety
+// Pricing plans data
 const pricingPlans: PricingPlan[] = [
     {
         title: "Starter Package",
@@ -46,14 +48,44 @@ const pricingPlans: PricingPlan[] = [
     },
 ];
 
-// ✅ Type the Modal Component
+// Modal Props
 interface ModalProps {
     isOpen: boolean;
     onClose: () => void;
-    planTitle: string;
+    planTitle: string; // Which plan was selected
 }
 
+// ✅ Modal: Handles the form submission
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const data = Object.fromEntries(formData.entries());
+
+        // ✅ Use fallback if env variable is missing
+        const API_URL = process.env.PUBLIC_API_URL || "http://localhost:5042";
+
+        console.log("🔄 Submitting to:", API_URL); // Debugging log
+
+        try {
+            const response = await fetch(`${API_URL}/api/pricing`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            if (response.ok) {
+                alert("✅ Pricing form submitted successfully!");
+                onClose();
+            } else {
+                throw new Error("❌ Failed to submit pricing form");
+            }
+        } catch (error) {
+            console.error("🚨 Submission error:", error);
+            alert("Something went wrong. Please try again.");
+        }
+    };
+
     if (!isOpen) return null;
 
     return (
@@ -70,20 +102,25 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
                 {/* Modal Content */}
                 <h3 className="text-2xl font-semibold text-orange-400">{planTitle}</h3>
                 <p className="mt-2 text-gray-300">
-                    Interested in the <span className="font-bold">{planTitle}</span> plan?
-                    Fill out your details, and we'll be in touch!
+                    Interested in the <span className="font-bold">{planTitle}</span> plan? Fill out your details,
+                    and we'll be in touch!
                 </p>
 
-                {/* Contact Form */}
-                <form className="mt-4 space-y-4">
+                {/* Form */}
+                <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+                    {/* Hidden field for planTitle */}
+                    <input type="hidden" name="planTitle" value={planTitle} />
+
                     <input
                         type="text"
+                        name="name"
                         placeholder="Your Name"
                         className="w-full p-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                         required
                     />
                     <input
                         type="email"
+                        name="email"
                         placeholder="Your Email"
                         className="w-full p-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:ring-2 focus:ring-orange-500 focus:outline-none"
                         required
@@ -100,7 +137,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
     );
 };
 
-// ✅ Type the Pricing Component
+// ✅ Main Pricing Component
 export default function Pricing(): JSX.Element {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [selectedPlan, setSelectedPlan] = useState<string>("");
@@ -112,7 +149,6 @@ export default function Pricing(): JSX.Element {
 
     return (
         <section className="w-full border mb-16 border-orange-500 rounded-md max-w-screen-xl px-6 py-6 md:py-6 bg-gray-900 text-white shadow-2xl shadow-black">
-            {/* Pricing Cards */}
             <div className="mt-6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                 {pricingPlans.map((plan: PricingPlan, index: number) => (
                     <div
@@ -127,16 +163,6 @@ export default function Pricing(): JSX.Element {
                         <p className="mt-2 text-gray-300">{plan.details}</p>
                         <div className="mt-4 text-4xl font-bold text-white">{plan.price}</div>
                         <p className="text-sm text-gray-400">{plan.note}</p>
-
-                        <ul className="mt-4 text-gray-300 space-y-2">
-                            {plan.features.map((feature, featureIndex) => (
-                                <li key={featureIndex} className="flex items-center">
-                                    <span className="text-green-400 mr-2">✔</span> {feature}
-                                </li>
-                            ))}
-                        </ul>
-
-                        {/* Book Now Button */}
                         <button
                             onClick={() => openModal(plan.title)}
                             className={`mt-6 w-full text-white py-2 rounded-lg transition-colors ${plan.buttonColor}`}
@@ -146,8 +172,6 @@ export default function Pricing(): JSX.Element {
                     </div>
                 ))}
             </div>
-
-            {/* Render Modal */}
             <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} planTitle={selectedPlan} />
         </section>
     );
