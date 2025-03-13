@@ -7,11 +7,5 @@
     "build": "astro build",
     "preview": "astro preview"
   },
-  "dependencies": {
-    "astro": "^5.3.1",
-    "@astrojs/react": "^4.2.1",
-    "@astrojs/tailwind": "^6.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  }
+  "dependencies": {}
 }

@@ -6,21 +6,23 @@
   "scripts": {
     "dev:main": "pnpm --filter main-site dev",
     "dev:admin": "pnpm --filter admin-panel dev",
-    "dev:blog": "pnpm --filter blog dev",
+    "dev:blog": "pnpm --filter blog-site dev",
     "build:main": "pnpm --filter main-site build",
     "build:admin": "pnpm --filter admin-panel build",
-    "build:blog": "pnpm --filter blog build",
-    "preview": "pnpm --filter main-site preview"
+    "build:blog": "pnpm --filter blog-site build"
   },
-  "dependencies": {
-    "@tailwindcss/postcss": "^4.0.13",
-    "postcss": "^8.5.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@astrojs/react": "^4.2.1",
     "@astrojs/tailwind": "^6.0.0",
     "astro": "^5.3.1",
-    "eslint": "^9.21.0",
-    "prettier": "^3.2.5"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@react-three/fiber": "^9.1.0",
+    "@react-three/drei": "^10.0.4",
+    "@react-three/postprocessing": "^3.0.4",
+    "tailwindcss": "^4.0.13",
+    "postcss": "^8.5.3",
+    "autoprefixer": "^10.4.21"
   }
 }
