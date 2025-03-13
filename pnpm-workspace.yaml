@@ -1,0 +1,4 @@
+packages:
+  - "./admin-panel"
+  - "./main-site"
+  - "./blog-site"
