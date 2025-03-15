@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`fixed left-1/2 transform -translate-x-1/2 w-[95%] max-w-screen-xl z-50 flex items-center justify-between rounded-md bg-black/90 px-6 py-3 shadow-lg h-16 transition-all duration-300 ease-in-out 
+      className={`fixed left-1/2 transform -translate-x-1/2 w-[95%] max-w-screen-xl z-[9999] flex items-center justify-between rounded-md bg-black/90 px-6 py-3 shadow-lg h-16 transition-all duration-300 ease-in-out 
         ${hidden ? "-top-20" : "top-4"}`}
     >
       {/* Logo */}
@@ -38,9 +38,18 @@ const Navbar: React.FC = () => {
         <div className="h-6 border-l-2 border-gray-400 mx-3 hidden md:block"></div>
       </div>
 
-      {/* Mobile Menu Button */}
-      <div className="md:hidden">
-        <button onClick={() => setOpen(!open)} className="text-white focus:outline-none">
+      {/* ✅ Mobile Menu Button (Fixed) */}
+      <div className="md:hidden relative z-[9999]">
+        <button className="z-9999"
+          onClick={() => {
+            console.log("Before toggle, open:", open);
+            setOpen(prev => {
+              console.log("After toggle, open:", !prev);
+              return !prev;
+            });
+          }}
+          className="text-white focus:outline-none"
+        >
           <svg
             className="w-6 h-6"
             fill="none"
@@ -48,29 +57,77 @@ const Navbar: React.FC = () => {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
           </svg>
         </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      {open && (
-        <div className="absolute top-16 left-0 w-full bg-black/90 rounded-md shadow-md md:hidden transition-all duration-300 ease-in-out">
-          <ul className="flex flex-col items-center space-y-4 py-4">
-            <li><a href="#services" className="text-white hover:text-gray-300">Services</a></li>
-            <li><a href="#pricing" className="text-white hover:text-gray-300">Pricing</a></li>
-            <li><a href="#contact" className="text-white hover:text-gray-300">Contact</a></li>
-            <li><a href="/blog" className="text-white hover:text-gray-300">Blog</a></li>
-          </ul>
-        </div>
-      )}
+      {/* ✅ Mobile Dropdown Menu (Fixed) */}
+      <div
+        className={`absolute top-16 left-0 w-full bg-black/90 rounded-md shadow-md md:hidden transition-all duration-300 z-[9999] ease-in-out ${open ? "block" : "hidden"
+          }`}
+      >
+        <ul className="flex flex-col items-center space-y-4 py-4">
+          <li>
+            <a href="#method" className="text-white hover:text-gray-300">
+              Method
+            </a>
+          </li>
+          <li>
+            <a href="#services" className="text-white hover:text-gray-300">
+              Services
+            </a>
+          </li>
+          <li>
+            <a href="#pricing" className="text-white hover:text-gray-300">
+              Pricing
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="text-white hover:text-gray-300">
+              Contact
+            </a>
+          </li>
+          <li>
+            <a href="/blog" className="text-white hover:text-gray-300">
+              Blog
+            </a>
+          </li>
+        </ul>
+      </div>
 
       {/* Desktop Navigation Links */}
       <ul className="hidden md:flex items-center space-x-6 flex-wrap">
-        <li><a href="#services" className="text-white hover:text-gray-300">Services</a></li>
-        <li><a href="#pricing" className="text-white hover:text-gray-300">Pricing</a></li>
-        <li><a href="#contact" className="text-white hover:text-gray-300">Contact</a></li>
-        <li><a href="/blog" className="text-white hover:text-gray-300">Blog</a></li>
+        <li>
+          <a href="#method" className="text-white hover:text-gray-300">
+            Method
+          </a>
+        </li>
+        <li>
+          <a href="#services" className="text-white hover:text-gray-300">
+            Services
+          </a>
+        </li>
+        <li>
+          <a href="#pricing" className="text-white hover:text-gray-300">
+            Pricing
+          </a>
+        </li>
+        <li>
+          <a href="#contact" className="text-white hover:text-gray-300">
+            Contact
+          </a>
+        </li>
+        <li>
+          <a href="/blog" className="text-white hover:text-gray-300">
+            Blog
+          </a>
+        </li>
       </ul>
     </nav>
   );

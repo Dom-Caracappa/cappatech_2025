@@ -1,12 +1,12 @@
 ---
 import "../styles/global.css";
-import Navbar from "../components/NavBar.tsx";
-import Hero from "../components/Hero.js";
-import Services from "../components/Services.js";
-import Pricing from "../components/Pricing.js";
-import ContactSection from "../components/ContactSection.tsx";
+import Navbar from "../components/NavBar";
+import Hero3D from "../components/Hero.tsx";
+import Services from "../components/Services";
+import Pricing from "../components/Pricing";
+import ContactSection from "../components/ContactSection";
 import Footer from "../components/Footer.astro";
-import Method from "../components/Method.js";
+import Method from "../components/Method";
 ---
 
 <html lang="en">
@@ -18,13 +18,13 @@ import Method from "../components/Method.js";
 		<title>CappaTech</title>
 	</head>
 
-	<body class="min-h-screen w-full bg-sky-950 text-white">
+	<body class="min-h-screen w-full hello bg-sky-950 text-white">
 		<!-- Navigation -->
-		<Navbar />
+		<Navbar client:load />
 
 		<!-- Main Content -->
 		<main class="container mx-auto flex flex-col px-4 sm:px-6 lg:px-8">
-			<Hero client:only />
+			<Hero3D client:visible />
 			<Method client:visible />
 			<Services client:visible />
 			<Pricing client:visible />

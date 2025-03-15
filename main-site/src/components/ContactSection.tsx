@@ -38,7 +38,7 @@ const ContactSection: React.FC = () => {
     };
 
     return (
-        <section className="w-full max-w-screen-xl px-6 py-16 md:py-24 bg-gray-900 text-black rounded-md shadow-2xl shadow-black flex justify-center items-center">
+        <section id="contact" className="w-full max-w-screen-xl px-6 py-16 md:py-24 bg-gray-900 text-black rounded-md shadow-2xl shadow-black flex justify-center items-center">
             <div className="bg-gray-800 shadow-lg rounded-2xl p-8 w-full max-w-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
                 {/* Heading */}
                 <h2 className="text-3xl font-bold text-orange-500 text-center">Get in Touch</h2>

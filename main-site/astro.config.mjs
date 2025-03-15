@@ -1,15 +1,18 @@
-import { defineConfig } from "astro/config";
-import tailwind from "@astrojs/tailwind";
-import react from "@astrojs/react";
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import tailwind from '@astrojs/tailwind';
 
+// https://astro.build/config
 export default defineConfig({
-  integrations: [react(), tailwind()],
+  integrations: [react(), tailwind() // Official Astro Tailwind integration
+  ],
   vite: {
-    css: {
-      postcss: "../../postcss.config.cjs", // Relative path from each subproject
-    },
+    // (Optional) If you do have a postcss.config.cjs, point to it:
+    // css: {
+    //   postcss: 'main-site/postcss.config.cjs',
+    // },
     optimizeDeps: {
-      include: ["three"],
-    },
-  },
+      include: ['three']
+    }
+  }
 });

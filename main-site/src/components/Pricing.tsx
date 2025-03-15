@@ -89,7 +89,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
+        <div className="fixed inset-0  flex items-center justify-center bg-black/50 backdrop-blur-sm z-50">
             <div className="bg-gray-900 p-6 rounded-lg shadow-lg max-w-md w-full relative">
                 {/* Close Button */}
                 <button
@@ -137,7 +137,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
     );
 };
 
-// ✅ Main Pricing Component
+// Main Pricing Component
 export default function Pricing(): JSX.Element {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [selectedPlan, setSelectedPlan] = useState<string>("");
@@ -148,7 +148,10 @@ export default function Pricing(): JSX.Element {
     };
 
     return (
-        <section className="w-full border mb-16 border-orange-500 rounded-md max-w-screen-xl px-6 py-6 md:py-6 bg-gray-900 text-white shadow-2xl shadow-black">
+        <section id="pricing" className="w-full border mb-16 mt- border-orange-500 rounded-md max-w-screen-xl px-6 py-6 md:py-6 bg-gray-900 text-white shadow-2xl shadow-black">
+            <h2 className="text-center text-2xl font-bold mb-8 text-orange-500">
+                Our Pricing
+            </h2>
             <div className="mt-6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                 {pricingPlans.map((plan: PricingPlan, index: number) => (
                     <div

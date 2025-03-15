@@ -6,7 +6,7 @@ export default defineConfig({
     integrations: [react(), tailwind()],
     vite: {
         css: {
-            postcss: "../../postcss.config.cjs", // Relative path from each subproject
+            postcss: "blog-site/postcss.config.cjs", // Relative path from each subproject
         },
         optimizeDeps: {
             include: ["three"],

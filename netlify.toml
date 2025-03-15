@@ -1,0 +1,8 @@
+# Prevent public access to the database folder
+[[headers]]
+for = "/database/*"
+[headers.values]
+cache-control = "no-store"
+access-control-allow-origin = "none"
+x-content-type-options = "nosniff"
+x-frame-options = "DENY"

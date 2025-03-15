@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// ✅ Define Service Type
+// 1. Service interface & data
 interface Service {
     title: string;
     icon: {
@@ -11,10 +11,9 @@ interface Service {
     examples: string[];
 }
 
-// ✅ Define services with Type Safety
 const services: Service[] = [
     {
-        title: "Digital Transformation & Workflow Automation",
+        title: "Digital Transformation",
         icon: {
             default: "/icons/services-icons/lightbulb-w.png",
             hover: "/icons/services-icons/lightbulb-o.png",
@@ -24,16 +23,16 @@ const services: Service[] = [
             "Process Optimization",
             "No-Code & Low-Code Solutions",
             "Workflow Automation",
-            "Cloud & API-First Digital Architecture",
+            "Cloud Architecture",
         ],
     },
     {
-        title: "Technical Documentation & Knowledge Management",
+        title: "Technical Documentation",
         icon: {
             default: "/icons/services-icons/gear-w.png",
             hover: "/icons/services-icons/gear-o.png",
         },
-        description: "We specialize in creating structured, maintainable...",
+        description: "We specialize in creating structured, maintainable docs...",
         examples: [
             "Enterprise & Engineering Documentation",
             "Knowledge Base Development",
@@ -42,113 +41,128 @@ const services: Service[] = [
         ],
     },
     {
-        title: "Business Systems & Data-Driven Decision Making",
+        title: "Business Systems",
         icon: {
             default: "/icons/services-icons/rocket-w.png",
             hover: "/icons/services-icons/rocket-o.png",
         },
-        description: "We help businesses implement and optimize digital business systems...",
+        description:
+            "We help businesses implement and optimize digital business systems...",
         examples: [
             "Jira & Confluence Suite Implementation",
-            "Custom Business Intelligence Dashboards",
-            "Standardization & Governance for Digital Workflows",
+            "Custom BI Dashboards",
             "ERP & CRM Integrations",
+            "Governance for Digital Workflows",
         ],
     },
     {
-        title: "Technical Strategy & Consulting",
+        title: "Strategy & Consulting",
         icon: {
             default: "/icons/services-icons/target-w.png",
             hover: "/icons/services-icons/target-o.png",
         },
-        description: "We provide strategic guidance to help organizations adopt, scale...",
+        description:
+            "We provide strategic guidance to help organizations adopt, scale...",
         examples: [
-            "Digital Tool & Vendor Selection",
             "Tech Stack Evaluation & Migration Strategy",
             "Agile & Lean Project Management Consulting",
-            "Cybersecurity & Risk Mitigation for Digital Operations",
+            "Cybersecurity & Risk Mitigation",
+            "Digital Tool & Vendor Selection",
         ],
     },
 ];
 
-// ✅ Type the ServiceCard Component
-interface ServiceCardProps {
-    service: Service;
-}
+// 2. Main Component
+export default function ResponsiveServices() {
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [hovered, setHovered] = useState<boolean>(false);
+    // The currently active service
+    const activeService = services[activeIndex];
+
+    // Handle select dropdown changes on mobile
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setActiveIndex(parseInt(e.target.value, 10));
+    };
 
     return (
-        <div className="p-6 mb-0 bg-gray-800 rounded-lg transition-transform hover:scale-105 hover:bg-gray-700">
-            {/* Header: Icon + Title + Toggle Button */}
-            <div className="flex items-center justify-between cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-                <div className="flex items-center space-x-4">
-                    {/* Icon */}
-                    <div
-                        className="w-10 h-10 flex items-center justify-center shrink-0"
-                        onMouseEnter={() => setHovered(true)}
-                        onMouseLeave={() => setHovered(false)}
-                    >
-                        <img
-                            src={hovered ? service.icon.hover : service.icon.default}
-                            alt={service.title}
-                            className="w-10 h-10 object-contain transition-opacity duration-300"
-                        />
-                    </div>
+        <section id="services" className="w-full max-w-screen-xl mb-16 mx-auto px-6 py-10 text-white bg-gray-900 border border-orange-500 rounded-md shadow-2xl shadow-black">
+            <h2 className="text-center text-2xl font-bold mb-8 text-orange-500">
+                Our Services
+            </h2>
 
-                    {/* Title */}
-                    <span className="text-lg font-semibold text-white leading-tight">{service.title}</span>
-                </div>
+            {/* Tabs (Hidden on small screens, shown on md+ screens) */}
+            <div className="hidden md:flex space-x-4 justify-center mb-6">
+                {services.map((service, index) => {
+                    const isActive = index === activeIndex;
+                    const isHovered = hoveredIndex === index;
 
-                {/* Toggle Icon */}
-                <button
-                    className="p-2 rounded-full hover:bg-gray-700"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setIsOpen(!isOpen);
-                    }}
-                >
-                    <ChevronIcon className={`w-6 h-6 text-white transition-transform ${isOpen ? "rotate-180" : ""}`} />
-                </button>
+                    // Decide which icon to show
+                    let iconSrc = service.icon.default;
+                    if (isActive) {
+                        // We'll still use the default icon path,
+                        // but apply a CSS filter to make it white
+                        iconSrc = service.icon.default;
+                    } else if (isHovered) {
+                        iconSrc = service.icon.hover;
+                    }
+
+                    return (
+                        <button
+                            key={index}
+                            onClick={() => setActiveIndex(index)}
+                            onMouseEnter={() => setHoveredIndex(index)}
+                            onMouseLeave={() => setHoveredIndex(null)}
+                            className={`flex items-center px-4 py-6 rounded-md transition-colors 
+                ${isActive
+                                    ? "bg-orange-500"
+                                    : "bg-gray-700 hover:bg-gray-600"
+                                }
+              `}
+                        >
+                            <img
+                                src={iconSrc}
+                                alt={service.title}
+                                // If active => apply filter to make the icon white
+                                className={`w-5 h-5 object-contain mr-2 ${isActive
+                                    ? "filter brightness-0 invert"
+                                    : ""
+                                    }`}
+                            />
+                            <span className="text-sm font-medium">{service.title}</span>
+                        </button>
+                    );
+                })}
             </div>
 
-            {/* Expandable Content */}
-            <div className={`transition-all duration-500 overflow-hidden ${isOpen ? "max-h-96 opacity-100 py-4" : "max-h-0 opacity-0"}`}>
-                <p className="mt-3 text-base text-gray-300">{service.description}</p>
-                <ul className="mt-4 list-disc list-outside pl-5 text-gray-200">
-                    {service.examples.map((example, index) => (
-                        <li key={index}>{example}</li>
+            {/* Dropdown (Shown on small screens, hidden on md+ screens) */}
+            <div className="md:hidden mb-6">
+                <select
+                    onChange={handleSelectChange}
+                    value={activeIndex}
+                    className="block w-full bg-gray-700 border border-gray-600 text-white p-2 rounded-md"
+                >
+                    {services.map((service, index) => (
+                        <option key={index} value={index}>
+                            {service.title}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            {/* Active Service Content */}
+            <div className="bg-gray-800 p-6 rounded-md">
+                <h3 className="text-xl font-semibold text-orange-400 mb-2">
+                    {activeService.title}
+                </h3>
+                <p className="text-base text-gray-300 mb-6">
+                    {activeService.description}
+                </p>
+                <ul className="list-disc list-outside pl-5 text-gray-200 space-y-1">
+                    {activeService.examples.map((example, idx) => (
+                        <li key={idx}>{example}</li>
                     ))}
                 </ul>
-            </div>
-        </div>
-    );
-};
-
-// ✅ Type the ChevronIcon Component
-const ChevronIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
-    return (
-        <svg {...props} fill="currentColor" viewBox="0 0 20 20">
-            <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-            />
-        </svg>
-    );
-};
-
-// ✅ Type the Services Component
-export default function Services(): JSX.Element {
-    return (
-        <section id="services" className="w-full mb-16 rounded-md max-w-screen-xl px-6 py-16 md:py-24 bg-gray-900 border border-orange-500 text-white shadow-2xl shadow-black">
-            <h2 className="text-center text-2xl font-bold mb-6 text-orange-500">Our Services</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-                {services.map((service: Service, index: number) => (
-                    <ServiceCard key={index} service={service} />
-                ))}
             </div>
         </section>
     );

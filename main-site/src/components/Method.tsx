@@ -54,7 +54,7 @@ const methodSteps: MethodStep[] = [
 // ✅ Type the Main Component
 export default function Method(): JSX.Element {
     return (
-        <section className="w-full mb-16 max-w-screen-xl px-6 py-16 md:py-24 bg-gray-900 text-white rounded-md shadow-2xl shadow-black border border-orange-500">
+        <section id="method" className="w-full mb-16 max-w-screen-xl px-6 py-8 md:py-12 bg-gray-900 text-white rounded-md shadow-2xl shadow-black border border-orange-500">
             <div className="w-full max-w-5xl mx-auto">
                 {/* Section Title */}
                 <h2 className="text-2xl text-center font-bold text-orange-500 mb-8">
