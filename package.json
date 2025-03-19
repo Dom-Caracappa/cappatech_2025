@@ -3,21 +3,51 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev:main": "pnpm --filter main-site dev",
+    "dev": "pnpm --filter main-site dev",
     "dev:admin": "pnpm --filter admin-panel dev",
     "dev:blog": "pnpm --filter blog-site dev",
-    "build:main": "pnpm --filter main-site build",
+    "build": "pnpm --filter main-site build",
     "build:admin": "pnpm --filter admin-panel build",
-    "build:blog": "pnpm --filter blog-site build"
+    "build:blog": "pnpm --filter blog-site build",
+    "start": "concurrently \"pnpm --filter main-site preview\" \"node --no-experimental-warnings cli.ts\"",
+    "generate:project": "npx tsx generateProjectJson.ts",
+    "fix-dependencies": "pnpm ts-node fixDependencies.ts",
+    "setup": "ts-node setup-cli.ts",
+    "cli": "ts-node cappa-cli/cli.ts && node cli.ts"
   },
-  "devDependencies": {
+  "bin": {
+    "cappatech": "./cappa-cli/cli.ts"
+  },
+  "dependencies": {
     "@astrojs/tailwind": "^6.0.0",
     "@react-three/drei": "^10.0.4",
-    "@react-three/fiber": "^8.2.0",
     "@react-three/postprocessing": "^3.0.4",
-    "astro": "^2.10.15",
+    "@types/figlet": "^1.7.0",
+    "drizzle-orm": "^0.40.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@react-three/fiber": "^9.0.0",
+    "@types/node": "^20.17.24",
+    "astro": "^3.0.0",
     "autoprefixer": "^10.4.21",
-    "postcss": "^8.4.21"
+    "chalk": "^5.4.1",
+    "dotenv": "16.4.7",
+    "expo": ">=43.0",
+    "expo-asset": ">=8.4",
+    "expo-file-system": ">=11.0",
+    "expo-gl": ">=11.0",
+    "figlet": "1.8.0",
+    "inquirer": "^12.5.0",
+    "postcss": "8.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-native": "^0.78.0",
+    "tailwindcss": "3.0.24",
+    "three": "0.159.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.8.2"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite";
 
 // Define the contact form table
 export const contactForm = sqliteTable("contact_form", {

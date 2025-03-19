@@ -38,96 +38,43 @@ const Navbar: React.FC = () => {
         <div className="h-6 border-l-2 border-gray-400 mx-3 hidden md:block"></div>
       </div>
 
-      {/* ✅ Mobile Menu Button (Fixed) */}
-      <div className="md:hidden relative z-[9999]">
-        <button className="z-9999"
-          onClick={() => {
-            console.log("Before toggle, open:", open);
-            setOpen(prev => {
-              console.log("After toggle, open:", !prev);
-              return !prev;
-            });
-          }}
-          className="text-white focus:outline-none"
+      {/* ✅ Mobile Menu Button - Hidden on Desktop */}
+      <button
+        className="md:hidden z-[9999] text-white focus:outline-none"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
-      </div>
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
 
-      {/* ✅ Mobile Dropdown Menu (Fixed) */}
+      {/* ✅ Mobile Dropdown Menu - Only visible when open */}
       <div
-        className={`absolute top-16 left-0 w-full bg-black/90 rounded-md shadow-md md:hidden transition-all duration-300 z-[9999] ease-in-out ${open ? "block" : "hidden"
+        className={`absolute top-16 left-0 w-full bg-black/90 rounded-md shadow-md md:hidden transition-all duration-300 ease-in-out ${open ? "block" : "hidden"
           }`}
       >
         <ul className="flex flex-col items-center space-y-4 py-4">
-          <li>
-            <a href="#method" className="text-white hover:text-gray-300">
-              Method
-            </a>
-          </li>
-          <li>
-            <a href="#services" className="text-white hover:text-gray-300">
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#pricing" className="text-white hover:text-gray-300">
-              Pricing
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="text-white hover:text-gray-300">
-              Contact
-            </a>
-          </li>
-          <li>
-            <a href="/blog" className="text-white hover:text-gray-300">
-              Blog
-            </a>
-          </li>
+          <li><a href="#method" className="text-white hover:text-gray-300">Method</a></li>
+          <li><a href="#services" className="text-white hover:text-gray-300">Services</a></li>
+          <li><a href="#pricing" className="text-white hover:text-gray-300">Pricing</a></li>
+          <li><a href="#contact" className="text-white hover:text-gray-300">Contact</a></li>
+          <li><a href="/blog" className="text-white hover:text-gray-300">Blog</a></li>
         </ul>
       </div>
 
-      {/* Desktop Navigation Links */}
+      {/* ✅ Desktop Navigation - Hidden on Mobile */}
       <ul className="hidden md:flex items-center space-x-6 flex-wrap">
-        <li>
-          <a href="#method" className="text-white hover:text-gray-300">
-            Method
-          </a>
-        </li>
-        <li>
-          <a href="#services" className="text-white hover:text-gray-300">
-            Services
-          </a>
-        </li>
-        <li>
-          <a href="#pricing" className="text-white hover:text-gray-300">
-            Pricing
-          </a>
-        </li>
-        <li>
-          <a href="#contact" className="text-white hover:text-gray-300">
-            Contact
-          </a>
-        </li>
-        <li>
-          <a href="/blog" className="text-white hover:text-gray-300">
-            Blog
-          </a>
-        </li>
+        <li><a href="#method" className="text-white hover:text-gray-300">Method</a></li>
+        <li><a href="#services" className="text-white hover:text-gray-300">Services</a></li>
+        <li><a href="#pricing" className="text-white hover:text-gray-300">Pricing</a></li>
+        <li><a href="#contact" className="text-white hover:text-gray-300">Contact</a></li>
+        <li><a href="/blog" className="text-white hover:text-gray-300">Blog</a></li>
       </ul>
     </nav>
   );

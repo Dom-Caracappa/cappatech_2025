@@ -1,0 +1,226 @@
+{
+    "name": "cappatech_2025",
+    "version": "0.0.1",
+    "description": "No description provided.",
+    "author": "Unknown",
+    "createdAt": "2025-03-19T02:48:30.762Z",
+    "lastUpdated": "2025-03-19T02:48:30.764Z",
+    "stack": {
+        "frontend": "Astro + React + TailwindCSS",
+        "backend": "Express + Node.js",
+        "database": "better-sqlite3, drizzle-orm",
+        "language": "TypeScript"
+    },
+    "development": {
+        "nodeVersion": "v23.7.0",
+        "packageManager": "pnpm",
+        "astroVersion": "^3.0.0",
+        "typescriptVersion": "^5.8.2"
+    },
+    "structure": [
+        ".astro",
+        ".vscode",
+        "admin-panel",
+        "blog-site",
+        "cappa-cli",
+        "database",
+        "main-site"
+    ],
+    "scripts": {
+        "dev": "pnpm --filter main-site dev",
+        "dev:admin": "pnpm --filter admin-panel dev",
+        "dev:blog": "pnpm --filter blog-site dev",
+        "build": "pnpm --filter main-site build",
+        "build:admin": "pnpm --filter admin-panel build",
+        "build:blog": "pnpm --filter blog-site build",
+        "start": "concurrently \"pnpm --filter main-site preview\" \"node --no-experimental-warnings cli.ts\"",
+        "generate:project": "npx tsx generateProjectJson.ts",
+        "fix-dependencies": "pnpm ts-node fixDependencies.ts",
+        "setup": "ts-node setup-cli.ts",
+        "cli": "ts-node cappa-cli/cli.ts && node cli.ts"
+    },
+    "dependencies": {
+        "astroPlugins": [
+            "@astrojs/tailwind",
+            "@astrojs/react"
+        ],
+        "reactLibraries": [
+            "@react-three/drei",
+            "@react-three/postprocessing",
+            "@react-three/fiber"
+        ],
+        "backend": [
+            "cors",
+            "dotenv",
+            "express"
+        ],
+        "database": [
+            "better-sqlite3",
+            "drizzle-orm"
+        ],
+        "other": [
+            "@types/figlet",
+            "@redis/client",
+            "@types/react",
+            "@types/react-dom",
+            "antd",
+            "connect-redis",
+            "express-session",
+            "ioredis",
+            "passport",
+            "passport-github2",
+            "react",
+            "react-dom",
+            "astro",
+            "clsx",
+            "postprocessing",
+            "tailwindcss",
+            "three"
+        ]
+    },
+    "devDependencies": {
+        "@react-three/fiber": "^9.0.0",
+        "@types/node": "^22.13.10",
+        "astro": "^3.0.0",
+        "autoprefixer": "^10.4.21",
+        "chalk": "^5.4.1",
+        "dotenv": "16.4.7",
+        "expo": ">=43.0",
+        "expo-asset": ">=8.4",
+        "expo-file-system": ">=11.0",
+        "expo-gl": ">=11.0",
+        "figlet": "1.8.0",
+        "inquirer": "^12.5.0",
+        "postcss": "^8.4.35",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-native": "^0.78.0",
+        "tailwindcss": "3.0.24",
+        "three": "0.159.0",
+        "ts-node": "^10.9.2",
+        "tsx": "^4.7.0",
+        "typescript": "^5.8.2",
+        "@types/connect-redis": "^0.0.23",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/express-session": "^1.18.1",
+        "@types/ioredis": "^5.0.0",
+        "@types/passport": "^1.0.17",
+        "@types/passport-github2": "^1.2.9",
+        "@types/react": "^18.2.42",
+        "@types/react-dom": "^18.2.15",
+        "@types/three": "^0.174.0"
+    },
+    "env": {
+        "PUBLIC_API_URL": "\"https://api.cappatech.net\""
+    },
+    "apiConfig": {
+        "apiEndpoints": [
+            "\"https://api.cappatech.net\"/api/pricing"
+        ],
+        "usesAuthentication": false,
+        "middleware": [
+            "CORS",
+            "Logging",
+            "Rate Limiting"
+        ]
+    },
+    "contributors": [
+        "Unknown"
+    ],
+    "subprojects": {
+        "admin-panel": {
+            "name": "admin-panel",
+            "private": true,
+            "version": "0.0.1",
+            "scripts": {
+                "dev": "astro dev",
+                "build": "astro build",
+                "preview": "astro preview"
+            },
+            "dependencies": {
+                "@astrojs/react": "^4.2.1",
+                "@redis/client": "^1.6.0",
+                "@types/react": "^19.0.0",
+                "@types/react-dom": "^19.0.0",
+                "antd": "^5.24.3",
+                "better-sqlite3": "^11.9.0",
+                "connect-redis": "^8.0.2",
+                "cors": "^2.8.5",
+                "dotenv": "^16.4.7",
+                "express": "^4.21.2",
+                "express-session": "^1.18.1",
+                "ioredis": "^5.6.0",
+                "passport": "^0.7.0",
+                "passport-github2": "^0.1.12",
+                "react": "^19.0.0",
+                "react-dom": "^19.0.0"
+            },
+            "devDependencies": {
+                "@types/connect-redis": "^0.0.23",
+                "@types/cors": "^2.8.17",
+                "@types/express": "^5.0.0",
+                "@types/express-session": "^1.18.1",
+                "@types/ioredis": "^5.0.0",
+                "@types/node": "^22.13.10",
+                "@types/passport": "^1.0.17",
+                "@types/passport-github2": "^1.2.9"
+            }
+        },
+        "blog-site": {
+            "name": "blog-site",
+            "private": true,
+            "version": "0.0.1",
+            "scripts": {
+                "dev": "astro dev",
+                "build": "astro build",
+                "preview": "astro preview"
+            },
+            "devDependencies": {
+                "autoprefixer": "^10.4.21"
+            }
+        },
+        "main-site": {
+            "name": "main-site",
+            "private": true,
+            "version": "0.0.1",
+            "scripts": {
+                "dev": "astro dev",
+                "build": "astro build",
+                "preview": "astro preview"
+            },
+            "dependencies": {
+                "@astrojs/react": "^4.2.1",
+                "@astrojs/tailwind": "^6.0.0",
+                "@react-three/drei": "^10.0.4",
+                "@react-three/fiber": "^9.0.0",
+                "@react-three/postprocessing": "^3.0.4",
+                "astro": "^3.0.0",
+                "better-sqlite3": "^11.9.0",
+                "clsx": "^2.1.1",
+                "dotenv": "^16.4.7",
+                "drizzle-orm": "^0.40.0",
+                "postprocessing": "^6.37.1",
+                "react": "^19.0.0",
+                "react-dom": "^19.0.0",
+                "tailwindcss": "^3.0.24",
+                "three": "^0.156.1"
+            },
+            "devDependencies": {
+                "@types/node": "^22.13.10",
+                "@types/react": "^18.2.42",
+                "@types/react-dom": "^18.2.15",
+                "@types/three": "^0.174.0",
+                "autoprefixer": "^10.4.21",
+                "postcss": "^8.4.35"
+            }
+        }
+    },
+    "notes": [
+        "This file is auto-generated.",
+        "It contains project structure, dependencies, scripts, and environment details.",
+        "TypeScript is explicitly tracked.",
+        "Backend dependencies (Express, CORS, etc.) are now included.",
+        "Development info like Node version and package manager is recorded."
+    ]
+}

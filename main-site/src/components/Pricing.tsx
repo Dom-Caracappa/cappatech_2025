@@ -63,7 +63,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
         const data = Object.fromEntries(formData.entries());
 
         // ✅ Use fallback if env variable is missing
-        const API_URL = process.env.PUBLIC_API_URL || "http://localhost:5042";
+        const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:5042";
+
 
         console.log("🔄 Submitting to:", API_URL); // Debugging log
 

@@ -10,7 +10,10 @@ const sqlite = new Database("contact-form.db", {
     verbose: console.log, // Optional: Helps debug queries
 });
 
-sqlite.pragma(`key = '${process.env.DATABASE_SECRET_KEY}';`); // Set encryption key
+// Set encryption key if DATABASE_SECRET_KEY is defined
+if (process.env.DATABASE_SECRET_KEY) {
+    sqlite.pragma(`key = '${process.env.DATABASE_SECRET_KEY}';`);
+}
 
 // Initialize Drizzle ORM
 export const db = drizzle(sqlite, { schema });
