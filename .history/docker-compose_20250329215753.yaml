@@ -1,0 +1,10 @@
+services:
+  backend:
+    build:
+      context: ./docker/server
+    working_dir: /app
+    volumes:
+      - ./docker/server/app:/app
+    ports:
+      - "5042:5042"
+    command: pnpm exec tsx index.mts

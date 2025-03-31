@@ -1,0 +1,23 @@
+# Dockerfile (root of your project or inside /server if isolating the Express backend)
+
+# ---- Step 1: Use a Node.js image with bun installed (or install tsx manually)
+FROM node:20-slim
+
+# Optional: define working directory inside the container
+WORKDIR /app
+
+# ---- Step 2: Copy package.json and install dependencies
+COPY ./server/package.json ./server/pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
+
+# ---- Step 3: Copy the server code into the container
+COPY ./server ./server
+
+# ---- Step 4: Install tsx for TypeScript runtime
+RUN pnpm add -g tsx
+
+# ---- Step 5: Expose port (this should match .env PORT=5042 or similar)
+EXPOSE 5042
+
+# ---- Step 6: Run server with tsx
+CMD ["tsx", "server/index.ts"]

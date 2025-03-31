@@ -2,13 +2,18 @@
     "name": "main-site",
     "private": true,
     "version": "0.0.1",
+    "type": "module",
     "scripts": {
-        "dev": "astro dev",
+        "dev": "astro dev --port 4321",
         "build": "astro build",
         "preview": "astro preview"
     },
     "dependencies": {
+        "astro": "^3.6.5",
+        "cookie": "^1.0.2",
+        "cors": "^2.8.5",
         "drizzle-orm": "^0.40.1",
+        "express": "^4.21.2",
         "postprocessing": "^6.37.1"
     },
     "devDependencies": {
@@ -27,8 +32,15 @@
         "@react-three/drei": "^10.0.4",
         "@react-three/fiber": "^9.0.0",
         "@react-three/postprocessing": "^3.0.4",
+        "@tailwindcss/forms": "^0.5.10",
+        "@tailwindcss/typography": "^0.5.16",
         "@tidbcloud/serverless": "^0.2.0",
         "@types/better-sqlite3": "^7.6.12",
+        "@types/connect-redis": "^0.0.23",
+        "@types/cookie": "^1.0.0",
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/inquirer": "^9.0.7",
         "@types/node": "^22.13.10",
         "@types/pg": "^8.11.11",
         "@types/react": "^18.3.18",

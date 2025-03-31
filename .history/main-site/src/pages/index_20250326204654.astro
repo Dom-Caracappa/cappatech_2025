@@ -1,0 +1,46 @@
+---
+// Required
+import react from "astrojs/react";
+// Stylesheets
+import "../styles/tailwind.css";
+// React Components
+import Navbar from "../components/NavBar.tsx";
+import Hero3D from "../components/Hero3D.tsx";
+import Services from "../components/Services.tsx";
+import Pricing from "../components/Pricing.tsx";
+import ContactSection from "../components/ContactSection.tsx";
+import Method from "../components/Method.tsx";
+// Astro Components
+import Footer from "../components/Footer.astro";
+---
+
+<html lang="en">
+	<head>
+		<!-- @ts-ignore -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="/src/styles/tailwind.css" />
+
+		<title>CappaTech</title>
+	</head>
+
+	<body class="min-h-screen w-full hello bg-sky-900 text-white">
+		<!-- Navigation -->
+		<Navbar client:load />
+
+		<!-- Main Content -->
+		<main class="container mx-auto flex flex-col px-4 sm:px-6 lg:px-8">
+			<Hero3D client:visible />
+			<Method client:visible />
+			<Services client:visible />
+			<Pricing client:visible />
+			<ContactSection client:visible />
+		</main>
+
+		<!-- Footer (Normalized Spacing) -->
+		<div class="h-20"></div>
+		<!-- Ensures Footer Spacing -->
+		<Footer />
+	</body>
+</html>

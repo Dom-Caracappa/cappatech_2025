@@ -2,6 +2,14 @@
   "extends": "../tsconfig.json",
   "include": [
     "src",
-    "astro-env.d.ts"
-  ]
+    "astro-env.d.ts",
+    "../cappa-graphql/src/db.ts",
+    "../cappa-graphql/src/db/schema.ts.ts",
+    "../server-temp/index.mts"
+  ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE `contact_form_submissions` ADD `subject` text NOT NULL;

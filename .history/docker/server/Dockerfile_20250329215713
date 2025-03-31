@@ -1,0 +1,25 @@
+# Use a lightweight Node.js base image
+FROM node:20-alpine
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy only package.json and lockfile first to install dependencies
+COPY ../../../package.json ../../../pnpm-lock.yaml ./
+COPY ../../../pnpm-workspace.yaml ./
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Install only the server's dependencies
+RUN pnpm install --filter ./server...
+
+
+# Set working dir to server
+WORKDIR /app/server
+
+# Expose the port from .env (default is 5042)
+EXPOSE 5042
+
+# Start the server with tsx
+CMD ["pnpm", "exec", "tsx", "index.mts"]

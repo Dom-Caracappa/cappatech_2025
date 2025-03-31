@@ -1,0 +1,17 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx index.mts"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "better-sqlite3": "^8.0.0",
+        "drizzle-orm": "^0.28.4",
+        "dotenv": "^16.1.4"
+    },
+    "devDependencies": {
+        "tsx": "^3.12.7"
+    }
+}

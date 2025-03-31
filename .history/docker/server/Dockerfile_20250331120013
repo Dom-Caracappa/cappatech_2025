@@ -1,0 +1,32 @@
+# ---- Builder Stage ----
+FROM node:20-alpine AS builder
+
+# Build tools for native modules like better-sqlite3
+RUN apk add --no-cache python3 make g++
+
+WORKDIR /app
+
+# Copy only dependency files to install faster on rebuilds
+COPY docker/server/app/package.json docker/server/app/pnpm-lock.yaml ./
+
+# Install pnpm
+RUN npm install -g pnpm
+
+# Install deps and compile native modules
+RUN pnpm install --ignore-scripts && pnpm rebuild better-sqlite3
+
+# Copy app source
+COPY docker/server/app /app
+
+# ---- Runner Stage ----
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy built app from builder stage
+COPY --from=builder /app /app
+
+# Expose your port
+EXPOSE 5042
+
+CMD ["pnpm", "exec", "tsx", "index.mts"]

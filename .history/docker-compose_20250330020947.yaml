@@ -1,0 +1,7 @@
+services:
+  backend:
+    build:
+      context: ./
+      dockerfile: docker/server/Dockerfile
+    ports:
+      - "5042:5042"

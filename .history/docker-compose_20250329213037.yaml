@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  express-server:
+    build:
+      context: ./docker/server
+      dockerfile: Dockerfile
+    ports:
+      - "5042:5042" # host:container
+    volumes:
+      - ./docker/server/app:/usr/src/app
+    working_dir: /usr/src/app
+    command: pnpm dev
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped

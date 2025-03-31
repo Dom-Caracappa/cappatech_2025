@@ -1,3 +1,11 @@
+// Helper function to check if a package is installed
+const isInstalled = (pkg: string): boolean => {
+    return installedPackages.dependencies?.[pkg] ||
+        installedPackages.devDependencies?.[pkg] ||
+        installedPackages.peerDependencies?.[pkg] ||
+        false;
+};
+
 import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -10,9 +18,11 @@ const shellPath = process.platform === "win32"
         : fs.existsSync("/bin/bash") ? "/bin/bash" // Old Faithful
             : "/bin/sh"; // If this doesn't work, how are you running this script?
 
+
 // Read package.json
 const packageJsonPath = path.join(process.cwd(), "package.json");
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+
 
 // Get installed dependencies
 const installedPackagesRaw = execSync("pnpm list --json").toString();
@@ -22,13 +32,30 @@ const installedPackages = JSON.parse(installedPackagesRaw);
 const missingDependencies: string[] = [];
 const conflictingDependencies: string[] = [];
 
-// Helper function to check if a package is installed
-const isInstalled = (pkg: string): boolean => {
-    return installedPackages.dependencies?.[pkg] ||
-        installedPackages.devDependencies?.[pkg] ||
-        installedPackages.peerDependencies?.[pkg] ||
-        false;
-};
+
+// Explicit core packages that must always be installed
+const alwaysRequiredDeps = [
+    "zod",
+    "chalk",
+    "figlet",
+    "ts-node",
+    "inquirer",
+    "drizzle-orm",
+    "sqlite3",
+    "better-sqlite3",
+    "dotenv",
+    "graphql",
+    "@apollo/server",
+    "drizzle-kit"
+];
+
+// Check and install missing core packages
+alwaysRequiredDeps.forEach(pkg => {
+    if (!isInstalled(pkg)) {
+        console.log(chalk.yellow(`🔧 Core dependency missing: ${pkg}`));
+        missingDependencies.push(pkg);
+    }
+});
 
 // TypeScript packages that require @types/*
 const typePackages: Record<string, string> = {

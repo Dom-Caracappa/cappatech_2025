@@ -1,0 +1,26 @@
+# Use a lightweight Node.js base image
+FROM node:20-alpine
+
+# Install required build tools for native modules
+RUN apk add --no-cache python3 make g++
+
+# Set working directory inside the container
+WORKDIR /app
+
+# Copy your actual server/app code into the container
+COPY ./server/app ./app
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Install dependencies with build tools
+RUN pnpm install --ignore-scripts && pnpm rebuild better-sqlite3
+
+# Set the working directory for running code
+WORKDIR /app
+
+# Expose the port your server listens on
+EXPOSE 5042
+
+# Start the server
+CMD ["pnpm", "exec", "tsx", "index.mts"]

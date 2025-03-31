@@ -1,6 +1,8 @@
 {
+    "type": "module",
     "extends": "astro/tsconfigs/strict",
     "compilerOptions": {
+        "outDir": "dist",
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "target": "ESNext",
@@ -9,6 +11,10 @@
         "allowImportingTsExtensions": true,
         "verbatimModuleSyntax": false,
         "esModuleInterop": true,
+        "sourceMap": true,
+        "declaration": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
         "resolveJsonModule": true,
         "jsx": "react-jsx",
         "lib": [
@@ -20,12 +26,19 @@
         "strict": true,
         "skipLibCheck": true
     },
+    "ts-node": {
+        "esm": true
+    },
     "include": [
         "cappa-cli/**/*.ts",
         "src/**/*.ts",
         "**/*.ts",
         "**/*.tsx",
-        "astro-env.d.ts"
+        "astro-env.d.ts",
+        "cappa-graphql/src/db/drizzle.mts",
+        "cappa-graphql/src/index.mts",
+        "server/graphql/resolvers/formResolvers.mts",
+        "server/graphql/typeDefs/formTypeDefs.mts"
     ],
     "exclude": [
         "node_modules",

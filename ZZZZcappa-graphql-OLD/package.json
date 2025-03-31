@@ -1,0 +1,47 @@
+{
+  "name": "cappa-graphql",
+  "version": "1.0.0",
+  "type": "module",
+  "module": "NodeNext",
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts & node --loader ts-node/esm src/index.ts",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate:migrations": "drizzle-kit generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@graphql-tools/schema": "^10.0.23",
+    "@libsql/client": "^0.15.0",
+    "apollo-server": "^3.13.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "drizzle-graphql": "^0.8.5",
+    "drizzle-orm": "^0.40.1",
+    "get-port": "^7.1.0",
+    "graphql": "^16.10.0",
+    "graphql-http": "^1.22.4",
+    "graphql-tag": "^2.12.6",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^22.13.10",
+    "@types/sqlite3": "^5.1.0",
+    "drizzle-kit": "^0.30.5",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
