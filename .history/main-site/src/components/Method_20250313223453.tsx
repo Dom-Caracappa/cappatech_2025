@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// Define MethodStep Type
+// ✅ Define MethodStep Type
 interface MethodStep {
     id: string;
     title: string;
@@ -11,7 +11,7 @@ interface MethodStep {
     };
 }
 
-//  Define method steps with Type Safety
+// ✅ Define method steps with Type Safety
 const methodSteps: MethodStep[] = [
     {
         id: "discovery",
@@ -79,7 +79,7 @@ export default function Method(): JSX.Element {
     );
 }
 
-// Type the IconToggle Component
+// ✅ Type the IconToggle Component
 interface IconToggleProps {
     icon: { default: string; hover: string };
     title: string;

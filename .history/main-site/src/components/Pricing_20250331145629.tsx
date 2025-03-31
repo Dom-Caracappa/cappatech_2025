@@ -1,10 +1,4 @@
-interface ModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    planTitle: string;
-}
-
-const Pricing: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, planTitle }) => {
     if (!isOpen) return null;
 
     return (
