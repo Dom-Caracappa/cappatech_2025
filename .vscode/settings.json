@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "blog-site": true,
+    "project-tracker": true,
+    "ZZZZcappa-graphql-OLD": true
+  }
+}
