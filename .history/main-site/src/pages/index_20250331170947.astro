@@ -1,0 +1,11 @@
+---
+import "../styles/global.css";
+
+import Home from "../components/Home";
+---
+
+<BaseLayout title="Home | CappaTech">
+	<main class="container mx-auto flex flex-col px-4 sm:px-6 lg:px-8">
+		<Home client:visible />
+	</main>
+</BaseLayout>
